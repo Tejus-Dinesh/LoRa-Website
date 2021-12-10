@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <title> Smart Campus</title>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <link rel="shortcut icon" href="assets/images/fav.jpg">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawsom-all.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    
+</head>
+
+<body>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyA1Q_hO-KOOYqbg1k8yY2nOfMNAvlgko4I",
+    authDomain: "nodediscovery-c0315.firebaseapp.com",
+    databaseURL: "https://nodediscovery-c0315-default-rtdb.firebaseio.com",
+    projectId: "nodediscovery-c0315",
+    storageBucket: "nodediscovery-c0315.appspot.com",
+    messagingSenderId: "472648095026",
+    appId: "1:472648095026:web:177a5ee1b89623b285b32b",
+    measurementId: "G-L70QRWF7NC"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+      window.onload = function(){
+          firebase.database().ref('MAC/').on('value',gotData,errData);
+          
+      }
+      function gotData(data){
+        var arr = data.val();
+        var keys = Object.keys(arr);
+
+        for(var i = 0; i < keys.length;i++){
+            var k = keys[i];
+            var ans = arr[k]
+            var splitstring = ans.split(" ");
+            var table = document.getElementById("myTable");
+
+// Create an empty <tr> element and add it to the 1st position of the table:
+            var row = table.insertRow(1);
+
+// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+
+
+
+// Add some text to the new cells:
+        cell1.innerHTML = splitstring[0];
+        cell2.innerHTML =  splitstring[1];
+        cell3.innerHTML = splitstring[3];
+        cell4.innerHTML = splitstring[7];
+        cell5.innerHTML =  splitstring[4];
+        if(splitstring[5]!=null){
+            cell6.innerHTML =  splitstring[5]+" "+splitstring[6];
+        }
+        else{
+            cell6.innerHTML =  splitstring[5];
+        }
+       
+        }
+      }
+      function errData(err){
+          console.log(err)
+      }
+      function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+  </script>
+
+  <!--####################### Header Starts Here ###################-->
+          <div class="header-container">
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 left-item">
+                        <ul>
+                            <li><i class="fas fa-envelope-square"></i> Girikohli2001@gmail.com</li>
+                            <li class="d-none d-sm-block"><i class="fas fa-phone-square"></i> +919234567890</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-5 d-none d-lg-block right-item">
+                        <ul>
+                            <li><a href=""><i class="https://github.com/"></i></a></li>
+                            <li><a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="https://in.pinterest.com/"><i class="fab fa-pinterest-p"></i></a></li>
+                            <li><a href="https://twitter.com/rayanasalive"><i class="fab fa-twitter"></i></a></li>
+                            <li> <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <nav id="menu-jk" class="container-fluid  no-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 logo">
+                        <img class="log" src="assets/images/image2.png" alt="">
+                        <img class="log-gray" src="assets/images/image2grey.jpg" alt="">
+                        <a data-toggle="collapse" data-target="#nav-head" href="#nav-head"><i class="fas d-block d-md-none small-menu fa-bars"></i></a>
+                    </div>
+                    <div id="nav-head" class="col-md-9 nav-div d-none d-md-block">
+                        <ul>
+                            <li><a class="js-scroll-trigger" href="index.html">Home</a></li>
+                            <li><a class="js-scroll-trigger" href="about_us.html">About Us</a></li>
+                            <li class="yc"><a class="js-scroll-trigger" href="index.html">Why LoRa</a></li>
+                            <li><a class="js-scroll-trigger" href="service.html">Applications</a></li>
+                            
+                       
+                            <li><a class="js-scroll-trigger" href="contact_us.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+  <!--####################### Slider Starts Here ###################-->
+      <div id="home" class="banner-container no-padding">
+          <div class="heading" style="position: relative; width: 1000px;height: 500px; left: 25%; top:22%;">
+              <h1 style="color: rgb(255, 255, 255);">Node Discovery Logs</h1>
+          </div>
+        <div class="card" style="position: absolute; width: 1000px;height: 500px; left: 25%; top:28%;background: white;overflow:auto">
+            <div class="card-body">
+                <h5 class="card-title mb-4"></h5>
+               
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search .." style="position: relative; bottom: 12px;">
+
+                <table id="myTable">
+                    <tr>
+                      <th>  Date </th>
+                      <th>  Time </th>
+                      <th>  MAC </th>
+                      <th>  SRN </th>
+                      <th> Name </th>
+                      <th> Branch </th>
+
+                  </table>
+                  
+            </div>
+        </div>
+    </div>
+    </footer>
+    <div class="copy">
+            <div class="container">
+                <a href="https://www.smarteyeapps.com/">2020 &copy; All Rights Reserved | Designed and Developed by Team45</a>
+                
+                <span>
+                <a><i class="fab fa-github"></i></a>
+                <a><i class="fab fa-google-plus-g"></i></a>
+                <a><i class="fab fa-pinterest-p"></i></a>
+                <a><i class="fab fa-twitter"></i></a>
+                <a><i class="fab fa-facebook-f"></i></a>
+        </span>
+            </div>
+
+        </div>
+   
+</body>
+<script src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js"></script>
+<script src="assets/js/script.js"></script>
+
+
+</html>

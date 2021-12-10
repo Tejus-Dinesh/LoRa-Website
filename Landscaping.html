@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <title> Smart Campus</title>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="shortcut icon" href="assets/images/fav.jpg">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawsom-all.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    
+</head>
+
+<body>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyCv6jj5JDFyOjAO8QDpOxF_Ixd00CnYMzo",
+    authDomain: "smartlandscape-a6a59.firebaseapp.com",
+    databaseURL: "https://smartlandscape-a6a59-default-rtdb.firebaseio.com/",
+    projectId: "smartlandscape-a6a59",
+    storageBucket: "smartlandscape-a6a59.appspot.com",
+    messagingSenderId: "215483365407",
+    appId: "1:215483365407:web:1473de2b48c3f354be7d2a",
+    measurementId: "G-PP7JWZP8MW"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+var pump;
+      window.onload = function(){
+          firebase.database().ref('smartlandscape-a6a59-default-rtdb/').on('value',gotData,errData);
+          firebase.database().ref('smartlandscape-a6a59-default-rtdb/').once('value').then(function(snapshot){
+				var azth = snapshot.val();
+				var value;
+				for(var i in azth)
+					value = azth[i]
+                if(value >= 100){
+                    pump = "OFF";
+                }
+                else{
+                     pump = "ON";
+                }
+				document.getElementById('test1').innerHTML = value.toPrecision(4) +"<br><br>Pump = "+ pump
+			})
+         
+      }
+      function gotData(data){
+        var counter = 0
+        var arr = data.val();
+        var keys = Object.keys(arr);
+        var xyValues = [];
+        var ls = [];
+        console.log(keys)
+        
+        for(var i = 0; i < keys.length;i++){
+            var k = keys[i];
+            var ans = arr[k]
+            ls.push(counter);
+            xyValues.push(ans)
+            counter = counter +1;
+        
+        }
+        console.log(xyValues)
+      new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: ls,
+          datasets: [{
+            pointRadius: 4,
+            pointBackgroundColor: "rgba(255,0,0,1)",
+            data: xyValues
+          }]
+        },
+      
+      });}
+          
+      function errData(err){
+          console.log(err)
+      }
+      
+ 
+  </script>
+
+  <!--####################### Header Starts Here ###################-->
+          <div class="header-container">
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 left-item">
+                        <ul>
+                        
+                        </ul>
+                    </div>
+                    <div class="col-lg-5 d-none d-lg-block right-item">
+                        <ul>
+                           
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <nav id="menu-jk" class="container-fluid  no-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 logo">
+                        <img class="log" src="assets/images/image2.png" alt="">
+                        <img class="log-gray" src="assets/images/image2grey.jpg" alt="">
+                        <a data-toggle="collapse" data-target="#nav-head" href="#nav-head"><i class="fas d-block d-md-none small-menu fa-bars"></i></a>
+                    </div>
+                    <div id="nav-head" class="col-md-9 nav-div d-none d-md-block">
+                        <ul>
+                            <li><a class="js-scroll-trigger" href="index.html">Home</a></li>
+                            <li><a class="js-scroll-trigger" href="about_us.html">About Us</a></li>
+                            <li class="yc"><a class="js-scroll-trigger" href="index.html">Why LoRa</a></li>
+                            <li><a class="js-scroll-trigger" href="service.html">Applications</a></li>
+                            
+                       
+                            <li><a class="js-scroll-trigger" href="contact_us.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+  <!--####################### Slider Starts Here ###################-->
+      <div id="home" class="banner-container no-padding">
+          <div class="heading" style="position: relative; width: 1000px;height: 500px; left: 25%; top:22%;">
+              <h1 style="color: rgb(255, 255, 255);">Smart Landscaping </h1>
+          </div>
+        <div class="card" style="position: absolute; width: 250px;height: 250px; left: 25%; top:28%;background: white;overflow:auto">
+            <div class="card-body">
+                
+                    <h5 class="card-title mb-4">Weather - Bangalore, IND</h5>
+                    <h5 id = "test"></h5>
+                   
+                    <script>
+                    fetch('http://api.openweathermap.org/data/2.5/weather?q=Bangalore,IND&APPID=c5713b00afe4b3bf9865ca71315f5d86')
+                        .then(
+                             function(response) {
+                                response.json().then(function(data) {
+                                    document.getElementById("test").innerHTML= (data.weather[0].main+"<br><br>"+"Temp = " +(((data.main.temp)-273.15)).toPrecision(4)+"<br> Humidity = "+data.main.humidity)
+                                    
+                                });
+                            }
+                          )
+                          .catch(function(err) {
+                                console.log('Fetch Error :-S', err);
+                            });
+                        
+                     </script>
+                    
+                
+            </div>
+            
+        </div>
+      
+        <div class="card-body" style="position:absolute;left: 25%;background: white;overflow:auto; width: 255px;height: 250px">
+                
+            <h5 class="card-title mb-4">Soil Moisture Data</h5>
+            <h5 id = "test1"></h5>
+           
+            
+            
+        
+    </div>
+    <canvas id="myChart" style="position: absolute;width:100%;max-width:700px;background-color: white;left: 50%;top : 30%"></canvas>
+    <script> </script>
+    </div>
+    </footer>
+    <div class="copy">
+            <div class="container">
+                <a href="https://www.smarteyeapps.com/">2020 &copy; All Rights Reserved | Designed and Developed by Team45</a>
+                
+                <span>
+                <a><i class="fab fa-github"></i></a>
+                <a><i class="fab fa-google-plus-g"></i></a>
+                <a><i class="fab fa-pinterest-p"></i></a>
+                <a><i class="fab fa-twitter"></i></a>
+                <a><i class="fab fa-facebook-f"></i></a>
+        </span>
+            </div>
+
+        </div>
+   
+</body>
+<script src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js"></script>
+<script src="assets/js/script.js"></script>
+
+
+</html>
